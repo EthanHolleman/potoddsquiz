@@ -1,0 +1,67 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: Gotham Rounded, sans-serif;
+    font-weight: normal;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to right, #d63333, #e88888);
+}
+
+.pot-odds-quiz {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(2, 250px);
+    grid-template-rows: repeat(5, 100px);
+    padding: 10px;
+}
+
+.title {
+    text-align: center;
+}
+
+.quiz-grid>button {
+
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+}
+
+.span-across {
+    grid-column: 1 / -1;
+}
+
+.question-text {
+    color: white;
+}
+
+.button {
+    font-size: 1.5rem;
+}
+
+.question {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid grey;
+    font-size: 3rem;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.result {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+.user-answer {
+    font-size: 1rem;
+    text-align: center;
+}

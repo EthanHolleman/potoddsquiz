@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pot Odds Tester</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="potodds.js" defer></script>
+</head>
+<body>
+   <div class="pot-odds-quiz">
+    <h1 class="span-across"> Pot Odds Quiz</h1>
+    <p class="span-across">Test your basic poker pot odds calculation skills. Enter values as odds,
+        percent, or probabilities.
+    </p>
+    <h2 class="title"> Pot Size</h2>
+    <h2 class="title"> Amount to Call</h2>
+
+       <div id="current-pot" class="question"></div>
+       <div id="bet" class="question"></div>
+       <div id="result" class = "result"></div>
+       <div class="answer">
+        <input id="user-answer" class='user-answer' type="text">
+        <span class="span-across"></span>
+       </div>
+       <button class="button" id="submit">Submit Answer</button>
+       <button class="span-across button" id="newQ" >New Question</button>
+       <h2 class="title">Correct Answers</h2>
+       <h2 class="title">Incorrect Answers</h2>
+       <div id="correct-count" class="title">0</div>
+       <div id="incorrect-count"class="title">0</div>
+       <h2 class="span-across">Settings</h2>
+       <form>
+        <h3>Answer lenience (%)</h3>
+        <input type="radio" name="choice" value=0.01> +/- 1
+        <input type="radio" name="choice" value=0.05 checked="checked"> +/- 5
+        <input type="radio" name="choice" value=0.10> +/- 10
+    </form>
+   </div>
+</body>
+</html>
