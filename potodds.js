@@ -14,7 +14,6 @@ function currentLeniance(){
     return selectedValue
 }
 
-
 class PotOddsQuiz {
 
     constructor(potSize, toCall){
@@ -26,9 +25,9 @@ class PotOddsQuiz {
         this.correct = 0
         this.incorrect = 0
         this.lastAnswer = -1
-        this.prob_regex = "[1|0]?\.\d+"
-        this.odds_regex = "\d+\:\d+"
-        this.percent_regex = "\d{1,3}"
+        this.prob_regex = /[1|0]?\.\d+/g
+        this.odds_regex = /(\d+)\:(\d)/g
+        this.percent_regex = /\d{1,3}/g
     }
     
     new_question() {
@@ -38,20 +37,43 @@ class PotOddsQuiz {
         document.getElementById("bet").innerHTML = newBetSize
         this.potSize = newPotSize
         this.toCall = newBetSize
+        this.lastAnswer = -1
+    }
+
+    odds_string_to_prop(oddsString){
+        var sep = oddsString.split(":")
+        var a = parseInt(sep[0])
+        var b = parseInt(sep[1])
+        return a / (a+b)
     }
 
     parse_answer(answer){
-        var answerStr = String(answer)
+        var odds = answer.match(this.odds_regex)
+        if (odds){
+            return this.odds_string_to_prop(odds[0])
+        }
+        var prob = answer.match(this.prob_regex)
+        if (prob){
+            return parseFloat(prob)
+        }
+        var percent = answer.match(this.percent_regex)
+        if (percent){
+            return parseFloat(percent)
+        }
+        alert("Please enter a valid percent, odd, or probability.")
+        return -1
     }
 
     score_answer(leniance){
-        var answer = parseFloat(document.getElementById("user-answer").value)
-        this.parse_answer(answer)
+        var answer = this.parse_answer(document.getElementById("user-answer").value)
+        if (answer == -1){
+            return
+        }
         var correctAnswer = (this.toCall / (this.potSize + this.toCall)).toFixed(3)
         var offBy = Math.abs(correctAnswer - answer)
         var offByPercent = (offBy / correctAnswer).toFixed(3)
         if (offByPercent <= leniance){
-            document.getElementById('result').innerHTML= "Correct!" + " " + "True Answer: " + String(correctAnswer)
+            document.getElementById('result').innerHTML= "Correct!" + " " + "True Answer = " + String(correctAnswer)
             this.correct = this.correct + 1
             this.lastAnswer = -1
             this.new_question()
@@ -75,32 +97,6 @@ class PotOddsQuiz {
 
 
 }
-
-
-// class PotOddsQuiz {
-
-//     constructor(potSize){
-//         this.potSize = potSize
-//     }
-
-//     new_question() {
-//         document.getElementById("current-pot").innerHTML = this.potSize
-//     }
-
-// }
-
-// class Test {
-
-//     constructor(potSize){
-//         this.potSize = potSize
-//     }
-
-//     question() {
-//         alert(this.potSize)
-//         document.getElementById("current-pot").innerHTML = this.potSize
-//     }
-
-// }
 
 let quiz = new PotOddsQuiz(10, 5)
 
